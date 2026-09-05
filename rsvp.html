@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP | Elias &amp; Maria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .hero-page { background-image: linear-gradient(rgba(22,41,74,.48), rgba(22,41,74,.64)), url("images/hero.jpg"); }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="monogram" href="index.html">Elias &amp; Maria</a>
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav">
+    <a href="index.html">Welcome</a>
+    <a href="registry.html">Registry</a>
+    <a href="rsvp.html" class="nav-cta" aria-current="page">RSVP</a>
+  </nav>
+</header>
+
+<section class="hero hero-page">
+  <div class="hero-inner">
+    <h1>RSVP</h1>
+    <p class="hero-meta">Kindly reply by 26 November 2026</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-narrow center">
+    <div class="countdown" id="countdown" aria-label="Time until the wedding"></div>
+    <p>We kindly ask that you submit your RSVP by filling out the below form</p>
+  </div>
+
+  <form class="form-card" id="rsvp-form" novalidate>
+
+    <div class="form-group">
+      <label id="attending-label">Will you be joining us?</label>
+      <div class="choice-row" role="radiogroup" aria-labelledby="attending-label">
+        <label class="choice">
+          <input type="radio" name="attending" value="Yes" required>
+          <span>Yes, with pleasure</span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="attending" value="No">
+          <span>Sadly I cannot</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Your full name</label>
+      <input type="text" id="name" name="name" required autocomplete="name">
+    </div>
+
+      <div class="form-group" id="guests-group" hidden>
+      <label id="guests-label">How many of you, including yourself?</label>
+      <div class="pill-row" role="radiogroup" aria-labelledby="guests-label">
+        <label class="pill"><input type="radio" name="guests" value="1" checked><span>1</span></label>
+        <label class="pill"><input type="radio" name="guests" value="2"><span>2</span></label>
+        <label class="pill"><input type="radio" name="guests" value="3"><span>3</span></label>
+        <label class="pill"><input type="radio" name="guests" value="4"><span>4</span></label>
+        <label class="pill"><input type="radio" name="guests" value="5"><span>5</span></label>
+      </div>
+    </div>
+
+    <div class="form-group" id="dietary-group" hidden>
+      <label for="dietary">Anything we should know about food?</label>
+      <input type="text" id="dietary" name="dietary" placeholder="Allergies, vegetarian, and so on">
+    </div>
+
+     <div class="form-group">
+      <label for="message">A message for us</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-solid">Send RSVP</button>
+    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<footer class="site-foot">
+  <a class="monogram" href="index.html">Elias &amp; Maria</a>
+  <p>26 December 2026 · Beirut</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,994 @@
+/* =========================================================
+   Wedding site — stylesheet
+   Colours live in :root below. Change them once, site-wide.
+   ========================================================= */
+
+:root {
+  --paper:      #F7F2E8;   /* ivory card stock, from the invitation */
+  --paper-deep: #EFE7D8;   /* alternating section background */
+  --ink:        #1E3A61;   /* the invitation navy */
+  --ink-soft:   #46618A;   /* body text */
+  --brass:      #1E3A61;   /* accent: same navy, kept as one variable */
+  --sage:       #8A9AB0;   /* secondary, used lightly */
+  --line:       rgba(30, 58, 97, 0.20);
+  --line-light: rgba(247, 242, 232, 0.32);
+
+  --serif: "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
+  --sans:  "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --measure: 62ch;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.75rem, 9vw, 5.5rem); }
+h2 { font-size: clamp(1.9rem, 4.5vw, 3rem); }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); }
+
+p { margin: 0 0 1.1em; max-width: var(--measure); }
+
+a { color: var(--brass); }
+
+/* ---------- Small structural label (used sparingly) ---------- */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 1rem;
+}
+
+/* ---------- Header / navigation ---------- */
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem var(--gutter);
+  background: rgba(245, 242, 236, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.monogram {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav { display: flex; align-items: center; gap: 1.75rem; }
+
+.site-nav a {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { border-bottom-color: var(--brass); color: var(--ink); }
+
+.site-nav .nav-cta {
+  border: 1px solid var(--brass);
+  border-radius: 999px;
+  padding: 0.35rem 1.1rem;
+  color: var(--brass);
+}
+.site-nav .nav-cta:hover { background: var(--brass); color: var(--paper); border-color: var(--brass); }
+
+.nav-toggle {
+  display: none;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 780px) {
+  .nav-toggle { display: block; }
+  .site-nav {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem var(--gutter) 1.25rem;
+    display: none;
+  }
+  .site-nav.is-open { display: flex; }
+  .site-nav a { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .site-nav .nav-cta { margin-top: 0.9rem; text-align: center; border-bottom: 1px solid var(--brass); }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 5rem var(--gutter);
+  color: var(--paper);
+  background-color: var(--ink);
+  background-image: linear-gradient(rgba(22, 41, 74, 0.48), rgba(22, 41, 74, 0.64)),
+                    url("../images/hero.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* the thin inset frame — the signature detail, repeated on page heroes */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: clamp(0.9rem, 2.5vw, 2rem);
+  border: 1px solid var(--line-light);
+  pointer-events: none;
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 46rem; }
+
+.hero h1 {
+  color: var(--paper);
+  font-style: italic;
+  margin-bottom: 0.35em;
+}
+
+.hero .amp { font-style: normal; display: block; font-size: 0.34em; letter-spacing: 0.24em; text-transform: uppercase; font-family: var(--sans); margin: 0.5em 0; color: rgba(247, 242, 232, 0.85); }
+
+.hero-meta {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  letter-spacing: 0.18em;
+  color: var(--paper);
+  opacity: 0.9;
+  margin-bottom: 2.25rem;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; }
+
+/* Page heroes on inner pages: shorter */
+.hero.hero-page { min-height: 52vh; }
+.hero.hero-page h1 { font-size: clamp(2.25rem, 6vw, 4rem); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  padding: 0.85rem 1.9rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  background: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-solid { background: var(--brass); border-color: var(--brass); color: var(--paper); }
+.btn-solid:hover { background: #16294A; border-color: #16294A; }
+.btn-light { color: var(--paper); }
+.btn-light:hover { background: var(--paper); color: var(--ink); }
+.btn-dark { color: var(--ink); }
+.btn-dark:hover { background: var(--ink); color: var(--paper); }
+
+/* ---------- Sections ---------- */
+.section { padding: clamp(3.5rem, 9vw, 7rem) var(--gutter); }
+.section-alt { background: var(--paper-deep); }
+.section-dark { background: var(--ink); color: rgba(245, 242, 236, 0.82); }
+.section-dark h2, .section-dark h3 { color: var(--paper); }
+.section-dark .eyebrow,
+.section-dark a,
+.section-dark .tl-time { color: var(--paper); }
+
+.wrap { max-width: 68rem; margin: 0 auto; }
+.wrap-narrow { max-width: 44rem; margin: 0 auto; }
+.center { text-align: center; }
+.center p { margin-left: auto; margin-right: auto; }
+
+.rule,
+.ornament {
+  display: block;
+  border: 0;
+  width: min(260px, 72%);
+  height: 26px;
+  margin: 1.75rem auto;
+  background: url("../images/ornaments/divider-royal.svg") no-repeat center;
+  background-size: contain;
+}
+.ornament-sm { width: min(170px, 55%); height: 18px; margin: 1.2rem auto; }
+.section-dark .rule,
+.section-dark .ornament { background-image: url("../images/ornaments/divider-light.svg"); }
+
+/* ---------- Key details (three cards) ---------- */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 3rem;
+}
+.detail {
+  text-align: center;
+  padding: 2rem 1.25rem;
+  border-top: 2px solid var(--brass);
+  background: var(--paper);
+}
+.section-alt .detail { background: var(--paper); }
+.detail h3 { margin-bottom: 0.35rem; }
+.detail .detail-time {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--brass);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.detail p { margin: 0 auto 0.5rem; max-width: 22ch; }
+
+/* ---------- Itinerary timeline ---------- */
+.timeline { position: relative; margin-top: 3.5rem; padding-left: 1.5rem; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.6rem; bottom: 0.6rem;
+  width: 1px;
+  background: var(--line-light);
+}
+.section:not(.section-dark) .timeline::before { background: var(--line); }
+
+.tl-item { position: relative; padding: 0 0 2.5rem 1.75rem; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -0.3rem; top: 0.7rem;
+  width: 0.5rem; height: 0.5rem;
+  background: var(--ink);
+  transform: rotate(45deg);
+}
+.section-dark .tl-item::before { background: var(--paper); }
+.tl-time {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--brass);
+  display: block;
+}
+.tl-item h3 { margin: 0.1rem 0 0.25rem; font-size: 1.35rem; }
+.tl-item p { margin: 0; font-size: 0.98rem; }
+
+/* ---------- Story timeline (alternating photo + text) ---------- */
+.story-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+.story-row:nth-child(even) .story-text { order: -1; }
+@media (max-width: 720px) {
+  .story-row { grid-template-columns: 1fr; }
+  .story-row:nth-child(even) .story-text { order: 0; }
+}
+.story-text .eyebrow { margin-bottom: 0.5rem; }
+
+/* ---------- Photo placeholders & gallery ---------- */
+.photo {
+  aspect-ratio: 4 / 5;
+  background: var(--paper-deep) center/cover no-repeat;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 1rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  overflow: hidden;
+}
+.photo.wide { aspect-ratio: 3 / 2; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 3rem;
+}
+.gallery .photo { aspect-ratio: 1; cursor: zoom-in; }
+
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(18, 25, 34, 0.94);
+  display: none;
+  place-items: center;
+  padding: 2rem;
+  z-index: 90;
+}
+.lightbox.is-open { display: grid; }
+.lightbox img { max-height: 88vh; max-width: 100%; object-fit: contain; }
+.lightbox-close {
+  position: absolute; top: 1.25rem; right: 1.5rem;
+  background: none; border: 1px solid var(--line-light);
+  color: var(--paper); border-radius: 999px;
+  padding: 0.4rem 1rem; cursor: pointer; font-family: var(--sans);
+}
+
+/* ---------- Cards (things to do, hotels) ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.card { background: var(--paper); border: 1px solid var(--line); }
+.section-alt .card { background: var(--paper); }
+.card .photo { aspect-ratio: 3 / 2; border: 0; border-bottom: 1px solid var(--line); }
+.card-body { padding: 1.4rem 1.5rem 1.6rem; }
+.card-body h3 { margin-bottom: 0.3rem; }
+.card-body p { font-size: 0.96rem; margin-bottom: 0.75rem; }
+
+/* ---------- Registry ---------- */
+.registry-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--brass);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  margin-top: 2rem;
+}
+.bank-list { list-style: none; margin: 0; padding: 0; }
+.bank-list li {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.bank-list li:last-child { border-bottom: 0; }
+.bank-list .label { color: var(--ink-soft); font-size: 0.9rem; }
+.bank-list .value { font-family: var(--serif); color: var(--ink); font-size: 1.05rem; }
+
+/* ---------- Forms ---------- */
+.form-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--brass);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  max-width: 40rem;
+  margin: 0 auto;
+}
+.form-group { margin-bottom: 1.4rem; }
+.form-group label {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.form-group .hint { font-size: 0.82rem; color: var(--ink-soft); margin: 0.3rem 0 0; }
+
+input, select, textarea {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0.1rem;
+  border-radius: 0;
+}
+select { appearance: none; background-image: none; }
+textarea { resize: vertical; min-height: 5rem; }
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-bottom-color: var(--brass);
+}
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.form-status { margin-top: 1rem; font-size: 0.95rem; min-height: 1.5rem; }
+.form-status.error { color: #9d3b2f; }
+
+.form-done { text-align: center; padding: 2rem 0; }
+.form-done h3 { color: var(--brass); }
+
+/* ---------- Calendar buttons ---------- */
+.cal-row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.5rem; }
+
+/* ---------- Footer ---------- */
+.site-foot {
+  background: var(--ink);
+  color: rgba(245, 242, 236, 0.7);
+  text-align: center;
+  padding: 3.5rem var(--gutter);
+}
+.site-foot .monogram { color: var(--paper); font-size: 2rem; display: inline-block; margin-bottom: 0.5rem; }
+.site-foot p { margin: 0 auto; font-size: 0.9rem; letter-spacing: 0.1em; }
+
+/* ---------- Misc ---------- */
+.hint { font-size: 0.85rem; color: var(--ink-soft); }
+.photo { transition: none; }
+
+/* =========================================================
+   Ornamental refinements — frames, corners, royal blue,
+   the E&M monogram and the Our Day illustrations.
+   ========================================================= */
+
+:root {
+  --royal:  #2B4FA0;   /* royal blue accent */
+  --script: "Pinyon Script", "Snell Roundhand", cursive;
+}
+
+/* ---------- royal blue accents ---------- */
+.eyebrow                       { color: var(--royal); }
+.detail .detail-time           { color: var(--royal); }
+
+.tl-item::before               { background: var(--royal); }
+.btn-solid                     { background: var(--royal); border-color: var(--royal); }
+.btn-solid:hover               { background: var(--ink); border-color: var(--ink); }
+.detail                        { border-top-color: var(--royal); }
+
+/* ---------- framed panels with filigree corners ---------- */
+.section-alt .story-row {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--royal);
+  border-top: 1px solid var(--royal);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.section-alt .story-row::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(30, 58, 97, 0.22);
+  pointer-events: none;
+}
+
+/* ---------- the two location panels, closer together ---------- */
+.section-alt + .section-alt { padding-top: 0; }
+.section-alt:has(+ .section-alt) { padding-bottom: clamp(1.25rem, 3vw, 2rem); }
+
+/* ---------- Our Day: text on the left, illustration on the right ---------- */
+.tl-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.75rem;
+  padding-bottom: 2rem;
+}
+.tl-item > .tl-time { flex: 0 0 100%; }
+.tl-item > h3 { flex: 1 1 8rem; margin: 0; }
+.tl-item > .tl-icon { flex: 0 0 auto; display: block; color: var(--paper); }
+.tl-svg { width: clamp(56px, 13vw, 82px); height: auto; }
+
+/* if the timeline is ever used on an ivory background */
+.section:not(.section-dark) .tl-item > .tl-icon { color: var(--royal); }
+.section-alt .story-row { margin-bottom: 0; }
+
+/* =========================================================
+   Third pass — the couple's names, emphasised detail cards,
+   interactive account and RSVP cards.
+   ========================================================= */
+
+:root {
+  --card:      #FFFDF7;                    /* lifted card surface */
+  --shadow:    0 14px 34px rgba(22, 41, 74, 0.13);
+  --shadow-lg: 0 18px 44px rgba(22, 41, 74, 0.22);
+  --sky:       #A9C0E8;                    /* pale blue on navy */
+}
+
+/* ---------- the names on the welcome page ---------- */
+.hero h1.names {
+  font-family: var(--script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(3.25rem, 13vw, 6.5rem);
+  line-height: 1.18;
+  color: var(--paper);
+  margin: 0 0 0.2rem;
+}
+.hero h1.names .amp {
+  display: inline;
+  font-family: var(--script);
+  font-size: 0.8em;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0 0.12em;
+  color: var(--paper);
+}
+.hero .ornament { background-image: url("../images/ornaments/divider-light.svg"); margin-top: 0.9rem; }
+
+/* ---------- Ceremony & Reception: filled, framed, lifted ---------- */
+.detail-grid { max-width: 54rem; margin-left: auto; margin-right: auto; }
+
+.detail {
+  position: relative;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-top: 1px solid var(--ink);
+  color: rgba(247, 242, 232, 0.86);
+  padding: clamp(2.25rem, 5vw, 3rem) 1.5rem clamp(2rem, 4vw, 2.5rem);
+  box-shadow: var(--shadow-lg);
+}
+.detail::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(247, 242, 232, 0.3);
+  pointer-events: none;
+}
+.detail > * { position: relative; }
+.detail-icon { display: block; margin: 0 auto 1rem; color: rgba(247, 242, 232, 0.8); }
+.detail-icon svg { width: 52px; height: auto; margin: 0 auto; }
+.detail h3 { color: var(--paper); }
+.detail .detail-time { color: var(--sky); font-size: clamp(2rem, 5vw, 2.6rem); }
+.detail p { color: rgba(247, 242, 232, 0.85); }
+.detail a {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-decoration: none;
+  border: 1px solid rgba(247, 242, 232, 0.5);
+  padding: 0.6rem 1.2rem;
+}
+.detail a:hover { background: var(--paper); color: var(--ink); }
+
+/* ---------- Ceremony / venue panels ---------- */
+.section-alt .story-row {
+  background: var(--card);
+  border-color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Countdown strip ---------- */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1.25rem, 5vw, 3rem);
+  flex-wrap: wrap;
+  margin: 0 auto 0.5rem;
+}
+.count-unit { text-align: center; min-width: 4.5rem; }
+.count-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 6vw, 3rem);
+  line-height: 1;
+  color: var(--royal);
+}
+.count-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+}
+
+/* ---------- Account cards (registry) ---------- */
+.acct-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.25rem);
+  margin-top: 2.5rem;
+}
+.acct-card {
+  background: var(--card);
+  border: 1px solid rgba(30, 58, 97, 0.18);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.acct-head {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1.5rem 1.6rem 1.3rem;
+}
+.acct-badge {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  border: 1px solid rgba(247, 242, 232, 0.55);
+  padding: 0.3rem 0.75rem;
+  margin-bottom: 0.9rem;
+}
+.acct-city {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 232, 0.7);
+  margin: 0 0 0.15rem;
+}
+.acct-head h3 { color: var(--paper); margin: 0; font-size: 1.6rem; }
+
+.acct-rows { list-style: none; margin: 0; padding: 0.4rem 1.6rem 1.4rem; }
+.acct-rows li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(30, 58, 97, 0.13);
+}
+.acct-rows li:last-child { border-bottom: 0; }
+.acct-field { flex: 1 1 auto; min-width: 0; }
+.acct-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+.acct-value {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: var(--ink);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.copy-btn {
+  flex: 0 0 auto;
+  width: 2.75rem; height: 2.75rem;
+  display: grid; place-items: center;
+  background: none;
+  border: 1px solid rgba(43, 79, 160, 0.35);
+  color: var(--royal);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.copy-btn svg { width: 1.05rem; height: 1.05rem; }
+.copy-btn:hover { background: var(--royal); color: var(--paper); }
+.copy-btn.is-copied { background: var(--royal); color: var(--paper); border-color: var(--royal); }
+
+.copy-toast {
+  position: fixed;
+  left: 50%; bottom: 2rem;
+  transform: translateX(-50%) translateY(1rem);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 80;
+}
+.copy-toast.is-shown { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- RSVP: choice pills ---------- */
+.form-card {
+  background: var(--card);
+  border: 1px solid rgba(30, 58, 97, 0.18);
+  border-top: 1px solid rgba(30, 58, 97, 0.18);
+  box-shadow: var(--shadow);
+}
+
+.choice-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.choice { flex: 1 1 12rem; cursor: pointer; }
+.choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+.choice span {
+  display: block;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(30, 58, 97, 0.28);
+  background: var(--paper);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.choice:hover span { border-color: var(--royal); }
+.choice input:checked + span {
+  background: var(--royal);
+  border-color: var(--royal);
+  color: var(--paper);
+}
+.choice input:focus-visible + span { outline: 2px solid var(--royal); outline-offset: 3px; }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.pill { cursor: pointer; }
+.pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+.pill span {
+  display: grid;
+  place-items: center;
+  min-width: 3.1rem;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+  border: 1px solid rgba(30, 58, 97, 0.28);
+  background: var(--paper);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.pill:hover span { border-color: var(--royal); }
+.pill input:checked + span { background: var(--royal); border-color: var(--royal); color: var(--paper); }
+.pill input:focus-visible + span { outline: 2px solid var(--royal); outline-offset: 3px; }
+
+.form-group[hidden] { display: none; }
+
+.form-progress {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 1.75rem;
+}
+.form-progress b { color: var(--royal); font-weight: 700; }
+
+.form-done {
+  padding: 2.5rem 0 1rem;
+}
+.form-done h3 { font-size: clamp(2rem, 6vw, 2.75rem); color: var(--ink); font-family: var(--serif); }
+.section-alt .detail { background: var(--ink); }
+
+/* =========================================================
+   Fourth pass — photo-backed cards, aligned buttons,
+   and the illustrated Our Day timeline.
+   ========================================================= */
+
+/* ---------- Ceremony & Reception: photo behind, modern ---------- */
+.detail-grid { max-width: 56rem; align-items: stretch; }
+
+.detail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--ink);
+  background-size: cover;
+  background-position: center;
+  padding: clamp(2.5rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 2rem);
+  box-shadow: var(--shadow-lg);
+}
+.detail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: linear-gradient(rgba(22, 41, 74, 0.72), rgba(22, 41, 74, 0.9));
+}
+.detail > * { position: relative; }
+
+.detail-icon { margin: 0 auto 1.1rem; color: rgba(247, 242, 232, 0.85); }
+.detail h3 { letter-spacing: 0.24em; margin-bottom: 0.35rem; }
+.detail .detail-time { margin-bottom: 0.55rem; }
+.detail p {
+  max-width: 100%;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+/* the button sits on the baseline of every card, whatever the text length */
+.detail a {
+  margin-top: auto;
+  border-radius: 3px;
+  background: rgba(247, 242, 232, 0.06);
+}
+
+/* ---------- Registry: photo behind the card header ---------- */
+.acct-card { border-radius: 6px; overflow: hidden; }
+.acct-head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 10.5rem;
+  background-color: var(--ink);
+  background-size: cover;
+  background-position: center;
+  padding: 1.5rem 1.6rem 1.4rem;
+}
+.acct-head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(22, 41, 74, 0.5), rgba(22, 41, 74, 0.88));
+}
+.acct-head > * { position: relative; }
+.acct-badge { align-self: flex-start; margin-bottom: 1.5rem; }
+.acct-city { color: rgba(247, 242, 232, 0.78); }
+.copy-btn { border-radius: 3px; }
+.acct-title { margin: 0; }
+
+/* =========================================================
+   Our Day — horizontal timeline with medallions
+   The five illustrations live in images/icons/ as traced SVGs,
+   placed with <img> so they render everywhere, including from disk.
+   ========================================================= */
+
+.section-ourday { background: var(--paper-deep); }
+.section-ourday .section-head { text-align: center; margin-bottom: 0.5rem; }
+.section-ourday h2 {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 9vw, 4.25rem);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.ourday {
+  --med: clamp(72px, 10vw, 116px);
+  position: relative;
+  list-style: none;
+  margin: 2.5rem auto 0;
+  padding: 0;
+  max-width: 62rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+}
+/* the rule the medallions sit on */
+.ourday::before {
+  content: "";
+  position: absolute;
+  left: 2%; right: 2%; top: 50%;
+  height: 1px;
+  background: rgba(30, 58, 97, 0.35);
+}
+
+.od-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.od-node { grid-row: 2; }
+
+.od-label { text-align: center; max-width: 11rem; }
+.od-up .od-label   { grid-row: 1; align-self: end;   margin-bottom: 1.9rem; }
+.od-down .od-label { grid-row: 3; align-self: start; margin-top: 1.9rem; }
+
+/* the short tick between medallion and label */
+.od-item::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 18px;
+  background: rgba(30, 58, 97, 0.35);
+}
+.od-up::after   { bottom: calc(50% + var(--med) / 2); }
+.od-down::after { top: calc(50% + var(--med) / 2); }
+
+/* a small diamond on the rule, midway between stations */
+.od-item + .od-item::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 50%;
+  width: 7px; height: 7px;
+  background: var(--royal);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.od-node {
+  width: var(--med);
+  height: var(--med);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  display: grid;
+  place-items: center;
+}
+/* --iw and --ih are set per icon in the markup: the drawn size as a
+   fraction of the medallion, chosen so the whole drawing fits inside
+   the rim with clear air at every corner. */
+.od-icon {
+  display: block;
+  width: calc(var(--iw) * var(--med));
+  height: calc(var(--ih) * var(--med));
+  object-fit: contain;
+}
+
+.od-time {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.od-label h3 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2.1vw, 1.6rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0.15rem 0 0;
+}
+
+/* Phones: the same stations as a vertical rail */
+@media (max-width: 820px) {
+  .ourday {
+    --med: 84px;
+    display: block;
+    max-width: 28rem;
+    margin-top: 2rem;
+  }
+  .ourday::before {
+    left: calc(var(--med) / 2);
+    right: auto;
+    top: 1.25rem;
+    bottom: 1.25rem;
+    width: 1px;
+    height: auto;
+  }
+  .od-item {
+    grid-template-rows: none;
+    grid-template-columns: var(--med) 1fr;
+    column-gap: 1.5rem;
+    justify-items: start;
+    padding: 0.85rem 0;
+  }
+  .od-node { grid-row: 1; grid-column: 1; }
+  .od-up .od-label,
+  .od-down .od-label {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: center;
+    text-align: left;
+    margin: 0;
+    max-width: none;
+  }
+  .od-item::after,
+  .od-item + .od-item::before { display: none; }
+}
